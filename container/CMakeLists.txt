@@ -29,7 +29,6 @@ set(CEFSIMPLE_SRCS_MACOSX
         src/platform/mac_application.mm
   )
 set(CEFSIMPLE_SRCS_WINDOWS
-  ledger_wallet.exe.manifest
   src/main_windows.cpp	
   src/platform/windows_application.cpp
   cefsimple.exe.manifest
@@ -37,12 +36,14 @@ set(CEFSIMPLE_SRCS_WINDOWS
   cefsimple_win.cc
   resource.h
   simple_handler_win.cc
+  ledger_wallet.exe.manifest
+
   )
 APPEND_PLATFORM_SOURCES(CEFSIMPLE_SRCS)
 source_group(cefsimple FILES ${CEFSIMPLE_SRCS})
 
 set(CEFSIMPLE_RES_SRCS_WINDOWS
-  res/cefsimple.ico
+  res/ledger_wallet.ico
   res/small.ico
   )
 APPEND_PLATFORM_SOURCES(CEFSIMPLE_RES_SRCS)
@@ -193,7 +194,20 @@ if(OS_WINDOWS)
   add_executable(${CEF_TARGET} WIN32 ${CEFSIMPLE_SRCS})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
-  target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
+  target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})  
+
+  # Find the WinSparkle library
+  include(DownloadWinSparkle)
+  DownloadWinSparkle("0.5.3" "${CMAKE_SOURCE_DIR}/third_party")
+  if("${CEF_PLATFORM}" STREQUAL "windows64")
+    set(X64PATH "x64/")
+  else()
+    set(X64PATH "")
+  endif()  
+  target_link_libraries(${CEF_TARGET} "${CMAKE_SOURCE_DIR}/third_party/WinSparkle-0.5.3/${X64PATH}/Release/winsparkle.lib")
+  target_include_directories(${CEF_TARGET} PUBLIC "${CMAKE_SOURCE_DIR}/third_party/WinSparkle-0.5.3/include")
+
+
 
   if(USE_SANDBOX)
     # Logical target used to link the cef_sandbox library.
