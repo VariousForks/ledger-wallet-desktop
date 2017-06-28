@@ -58,8 +58,8 @@ void LedgerApplication::OnContextInitialized() {
     info.SetAsChild((NSView *)_window.winId(), 0, 0, _window.size().width(), _window.size().height());
 #elif defined(OS_WIN)
     info.SetAsPopup(NULL, "Ledger Wallet");
-    win_sparkle_set_appcast_url("https://winsparkle.org/example/appcast.xml");
-    win_sparkle_init()
+    win_sparkle_set_appcast_url("https://localhost/appcast.xml");
+    win_sparkle_init();
 #else
 
 #endif

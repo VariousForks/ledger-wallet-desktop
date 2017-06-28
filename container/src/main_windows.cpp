@@ -39,7 +39,6 @@ int main(int argc, char **argv) {
 	QApplication application(argc, argv);
 	CefMainArgs args;
 	CefRefPtr<LedgerApplication> app(new LedgerApplication(application, args));
-
 	return app->run();
 }
 

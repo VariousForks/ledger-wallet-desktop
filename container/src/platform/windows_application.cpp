@@ -31,5 +31,4 @@
 #include "../app/LedgerApplication.hpp"
 
 void LedgerApplication::customizeWindow() {
-
 }

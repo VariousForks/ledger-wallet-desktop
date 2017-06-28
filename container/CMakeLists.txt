@@ -31,9 +31,7 @@ set(CEFSIMPLE_SRCS_MACOSX
 set(CEFSIMPLE_SRCS_WINDOWS
   src/main_windows.cpp	
   src/platform/windows_application.cpp
-  cefsimple.exe.manifest
-  cefsimple.rc
-  cefsimple_win.cc
+  ledger_wallet_win.cc
   resource.h
   simple_handler_win.cc
   ledger_wallet.exe.manifest
