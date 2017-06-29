@@ -34,7 +34,10 @@
 #include "include/views/cef_browser_view.h"
 #include "include/views/cef_window.h"
 #include "include/wrapper/cef_helpers.h"
+
+#if defined(OS_WIN)
 #include "winsparkle.h"
+#endif
 
 
 LedgerApplication::LedgerApplication(QApplication &application, CefMainArgs &args)
@@ -63,7 +66,7 @@ void LedgerApplication::OnContextInitialized() {
 #else
 
 #endif
-    CefBrowserHost::CreateBrowser(info, LedgerCefHandler::getInstance(), "https://google.fr", settings,
+    CefBrowserHost::CreateBrowser(info, LedgerCefHandler::getInstance(), "https://ledgerwallet.com", settings,
                                   NULL);
 }
 
@@ -78,6 +81,8 @@ int LedgerApplication::run() {
 }
 
 LedgerApplication::~LedgerApplication() {
+#if defined(OS_WIN)
     win_sparkle_cleanup();
+#endif
     delete _cefRunLoop;
 }

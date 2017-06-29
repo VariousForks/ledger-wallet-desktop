@@ -33,11 +33,12 @@
 #include <QApplication>
 #include <QMainWindow>
 #include "app/LedgerApplication.hpp"
+#include <QDebug>
 
 int main(int argc, char **argv) {
     QApplication application(argc, argv);
     CefMainArgs args(argc, argv);
     CefRefPtr<LedgerApplication> app(new LedgerApplication(application, args));
-
+    qDebug() << "HELLO WORLD";
     return app->run();
 }

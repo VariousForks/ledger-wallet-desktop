@@ -14,7 +14,6 @@ set(CMAKE_AUTOMOC ON)
 # cefsimple sources.
 set(
         CEFSIMPLE_SRCS
-        simple_app.cc simple_app.h simple_handler.cc simple_handler.h
         src/app/LedgerApplication.cpp src/app/LedgerApplication.hpp
         src/cef/LedgerCefHandler.cpp src/cef/LedgerCefHandler.hpp src/cef/LedgerCefRunLoop.cpp src/cef/LedgerCefRunLoop.hpp)
 
@@ -24,16 +23,13 @@ set(CEFSIMPLE_SRCS_LINUX
   simple_handler_linux.cc
   )
 set(CEFSIMPLE_SRCS_MACOSX
-  simple_handler_mac.mm
         src/main_mac.mm
         src/platform/mac_application.mm
   )
 set(CEFSIMPLE_SRCS_WINDOWS
   src/main_windows.cpp	
   src/platform/windows_application.cpp
-  ledger_wallet_win.cc
   resource.h
-  simple_handler_win.cc
   ledger_wallet.exe.manifest
 
   )
