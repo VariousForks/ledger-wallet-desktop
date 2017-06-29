@@ -11,72 +11,73 @@ set(CMAKE_AUTOMOC ON)
 # Source files.
 #
 
-# cefsimple sources.
+# ledger_wallet sources.
 set(
-        CEFSIMPLE_SRCS
-        simple_app.cc simple_app.h simple_handler.cc simple_handler.h
+        LEDGER_WALLET_SRCS
+        ledger_wallet_app.cc ledger_wallet_app.h ledger_wallet_handler.cc ledger_wallet_handler.h
         src/app/LedgerApplication.cpp src/app/LedgerApplication.hpp
         src/cef/LedgerCefHandler.cpp src/cef/LedgerCefHandler.hpp src/cef/LedgerCefRunLoop.cpp src/cef/LedgerCefRunLoop.hpp)
 
 
-set(CEFSIMPLE_SRCS_LINUX
-  cefsimple_linux.cc
-  simple_handler_linux.cc
+set(LEDGER_WALLET_SRCS_LINUX
+  ledger_wallet_linux.cc
+  ledger_wallet_handler_linux.cc
   )
-set(CEFSIMPLE_SRCS_MACOSX
-  simple_handler_mac.mm
+set(LEDGER_WALLET_SRCS_MACOSX
+  ledger_wallet_handler_mac.mm
         src/main_mac.mm
         src/platform/mac_application.mm
   )
-set(CEFSIMPLE_SRCS_WINDOWS
+set(LEDGER_WALLET_SRCS_WINDOWS
   src/main_windows.cpp	
   src/platform/windows_application.cpp
   ledger_wallet_win.cc
+  ledger_wallet.rc
   resource.h
-  simple_handler_win.cc
+  ledger_wallet_handler_win.cc
   ledger_wallet.exe.manifest
 
   )
-APPEND_PLATFORM_SOURCES(CEFSIMPLE_SRCS)
-source_group(cefsimple FILES ${CEFSIMPLE_SRCS})
+APPEND_PLATFORM_SOURCES(LEDGER_WALLET_SRCS)
+source_group(ledger_wallet FILES ${LEDGER_WALLET_SRCS})
 
-set(CEFSIMPLE_RES_SRCS_WINDOWS
+set(LEDGER_WALLET_RES_SRCS_WINDOWS
   res/ledger_wallet.ico
   res/small.ico
   )
-APPEND_PLATFORM_SOURCES(CEFSIMPLE_RES_SRCS)
-source_group(cefsimple\\\\res FILES ${CEFSIMPLE_RES_SRCS})
+APPEND_PLATFORM_SOURCES(LEDGER_WALLET_RES_SRCS)
+source_group(ledger_wallet\\\\res FILES ${LEDGER_WALLET_RES_SRCS})
 
-set(CEFSIMPLE_SRCS
-  ${CEFSIMPLE_SRCS}
-  ${CEFSIMPLE_RES_SRCS}
+set(LEDGER_WALLET_SRCS
+  ${LEDGER_WALLET_SRCS}
+  ${LEDGER_WALLET_RES_SRCS}
   )
 
-# cefsimple helper sources.
-set(CEFSIMPLE_HELPER_SRCS_MACOSX
+# ledger_wallet helper sources.
+set(LEDGER_WALLET_HELPER_SRCS_MACOSX
   process_helper_mac.cc
   )
-APPEND_PLATFORM_SOURCES(CEFSIMPLE_HELPER_SRCS)
-source_group(cefsimple FILES ${CEFSIMPLE_HELPER_SRCS})
+APPEND_PLATFORM_SOURCES(LEDGER_WALLET_HELPER_SRCS)
+source_group(ledger_wallet FILES ${LEDGER_WALLET_HELPER_SRCS})
 
-# cefsimple resources.
-set(CEFSIMPLE_RESOURCES_MAC_SRCS_MACOSX
+# ledger_wallet resources.
+set(LEDGER_WALLET_RESOURCES_MAC_SRCS_MACOSX
   mac/Info.plist
-  mac/cefsimple.icns
+  mac/ledger_wallet.icns
   )
-APPEND_PLATFORM_SOURCES(CEFSIMPLE_RESOURCES_MAC_SRCS)
-source_group(cefsimple\\\\mac FILES ${CEFSIMPLE_RESOURCES_MAC_SRCS})
+APPEND_PLATFORM_SOURCES(LEDGER_WALLET_RESOURCES_MAC_SRCS)
+source_group(ledger_wallet\\\\mac FILES ${LEDGER_WALLET_RESOURCES_MAC_SRCS})
 
-set(CEFSIMPLE_RESOURCES_MAC_ENGLISH_LPROJ_SRCS_MACOSX
+set(LEDGER_WALLET_RESOURCES_MAC_ENGLISH_LPROJ_SRCS_MACOSX
   mac/English.lproj/InfoPlist.strings
   mac/English.lproj/MainMenu.xib
   )
-APPEND_PLATFORM_SOURCES(CEFSIMPLE_RESOURCES_MAC_ENGLISH_LPROJ_SRCS)
-source_group(cefsimple\\\\mac\\\\English.lproj FILES ${CEFSIMPLE_RESOURCES_MAC_ENGLISH_LPROJ_SRCS})
+APPEND_PLATFORM_SOURCES(LEDGER_WALLET_RESOURCES_MAC_ENGLISH_LPROJ_SRCS)
+source_group(ledger_wallet\\\\mac\\\\English.lproj FILES ${LEDGER_WALLET_RESOURCES_MAC_ENGLISH_LPROJ_SRCS})
 
-set(CEFSIMPLE_RESOURCES_SRCS
-  ${CEFSIMPLE_RESOURCES_MAC_SRCS}
-  ${CEFSIMPLE_RESOURCES_MAC_ENGLISH_LPROJ_SRCS})
+set(LEDGER_WALLET_RESOURCES_SRCS
+  ${LEDGER_WALLET_RESOURCES_MAC_SRCS}
+  ${LEDGER_WALLET_RESOURCES_MAC_ENGLISH_LPROJ_SRCS})
 
 
 #
@@ -103,7 +104,7 @@ SET_CEF_TARGET_OUT_DIR()
 
 if(OS_LINUX)
   # Executable target.
-  add_executable(${CEF_TARGET} ${CEFSIMPLE_SRCS})
+  add_executable(${CEF_TARGET} ${LEDGER_WALLET_SRCS})
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
@@ -135,7 +136,7 @@ if(OS_MACOSX)
   set(PRODUCT_NAME "${CEF_TARGET}")
 
   # Helper executable target.
-  add_executable(${CEF_HELPER_TARGET} MACOSX_BUNDLE ${CEFSIMPLE_HELPER_SRCS})
+  add_executable(${CEF_HELPER_TARGET} MACOSX_BUNDLE ${LEDGER_WALLET_HELPER_SRCS})
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_HELPER_TARGET})
   add_dependencies(${CEF_HELPER_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_HELPER_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
@@ -147,12 +148,12 @@ if(OS_MACOSX)
   FIX_MACOSX_HELPER_FRAMEWORK_RPATH(${CEF_HELPER_TARGET})
 
   # Main executable target.
-  add_executable(${CEF_TARGET} MACOSX_BUNDLE ${CEFSIMPLE_RESOURCES_SRCS} ${CEFSIMPLE_SRCS})
+  add_executable(${CEF_TARGET} MACOSX_BUNDLE ${LEDGER_WALLET_RESOURCES_SRCS} ${LEDGER_WALLET_SRCS})
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper "${CEF_HELPER_TARGET}")
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
   set_target_properties(${CEF_TARGET} PROPERTIES
-    RESOURCE "${CEFSIMPLE_RESOURCES_SRCS}"
+    RESOURCE "${LEDGER_WALLET_RESOURCES_SRCS}"
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/mac/Info.plist
     )
 
@@ -178,7 +179,7 @@ if(OS_MACOSX)
     # Manually process and copy over resource files.
     # The Xcode generator handles this via the set_target_properties RESOURCE directive.
     set(PREFIXES "mac/")  # Remove these prefixes from input file paths.
-    COPY_MACOSX_RESOURCES("${CEFSIMPLE_RESOURCES_SRCS}" "${PREFIXES}" "${CEF_TARGET}" "${CMAKE_CURRENT_SOURCE_DIR}" "${CEF_APP}")
+    COPY_MACOSX_RESOURCES("${LEDGER_WALLET_RESOURCES_SRCS}" "${PREFIXES}" "${CEF_TARGET}" "${CMAKE_CURRENT_SOURCE_DIR}" "${CEF_APP}")
   endif()
 endif()
 
@@ -189,7 +190,7 @@ endif()
 
 if(OS_WINDOWS)
   # Executable target.
-  add_executable(${CEF_TARGET} WIN32 ${CEFSIMPLE_SRCS})
+  add_executable(${CEF_TARGET} WIN32 ${LEDGER_WALLET_SRCS})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})  

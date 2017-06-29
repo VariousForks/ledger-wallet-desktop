@@ -34,7 +34,9 @@
 #include "include/views/cef_browser_view.h"
 #include "include/views/cef_window.h"
 #include "include/wrapper/cef_helpers.h"
+#if defined(OS_WIN)
 #include "winsparkle.h"
+#endif
 
 
 LedgerApplication::LedgerApplication(QApplication &application, CefMainArgs &args)
@@ -78,6 +80,8 @@ int LedgerApplication::run() {
 }
 
 LedgerApplication::~LedgerApplication() {
+    #if defined(OS_WIN)
     win_sparkle_cleanup();
+    #endif
     delete _cefRunLoop;
 }
